@@ -1,0 +1,22 @@
+---
+import Picture from "@/components/elements/Picture.astro";
+import Button from "@/components/ui/Button.astro";
+import Base from "@/layouts/Base.astro";
+const imgBase = import.meta.env.BASE_URL + "assets/images/";
+---
+
+<Base pageMeta="about" pageData="about">
+  <!-- body内の要素 -->
+  <Button href="/about" className="c-button--primary" text="Aboutページへ" />
+  <Picture
+    srcPc="common/item_pc"
+    srcSp="common/item_sp"
+    alt="説明テキスト"
+    loading="lazy"
+    classNames="custom-class item"
+    pictureAttributes={{ "data-picture": "" }}
+    imgAttributes={{ "data-img": "" }}
+  />
+</Base>
+
+<style lang="scss" is:global></style>

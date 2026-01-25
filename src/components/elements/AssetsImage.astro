@@ -1,0 +1,60 @@
+---
+import { getImage } from "astro:assets";
+
+type ImageFormat = "jpg" | "png" | "webp" | "avif";
+
+type Props = {
+  srcPaths: [string, string?];
+  classNames?: string;
+  alt?: string;
+  loading?: "lazy" | "eager";
+  format?: ImageFormat;
+  quality?: number;
+  imgAttributes?: Record<string, string>;
+};
+
+const {
+  srcPaths,
+  classNames,
+  alt = "",
+  loading = "lazy",
+  format = "webp",
+  quality,
+  imgAttributes = {},
+} = Astro.props;
+
+const importImage = async (src: string) => {
+  const imageFile = import.meta.glob<{ default: ImageMetadata }>("/src/assets/images/**/*");
+
+  if (!imageFile[`/src/assets/images/${src}`]) return;
+  const moduleImage = await imageFile[`/src/assets/images/${src}`]();
+  const { default: imageSrc } = moduleImage;
+
+  const image = await getImage({
+    src: imageSrc,
+    format,
+    quality: quality || (format === "png" ? 80 : 85),
+  });
+
+  const { loading: _, ...attributes } = image.attributes;
+  return { src: image.src, attributes };
+};
+
+const importImages = async () => {
+  return Promise.all(srcPaths.filter((src): src is string => src !== undefined).map(importImage));
+};
+
+const applyDataAttributes = (attributes: Record<string, string>) =>
+  Object.fromEntries(Object.entries(attributes).map(([key, value]) => [key, value]));
+
+const images = await importImages();
+---
+
+<img
+  src={images[0]?.src}
+  {...images[0]?.attributes}
+  {...applyDataAttributes(imgAttributes)}
+  loading={loading}
+  alt={alt}
+  class:list={["i", classNames]}
+/>

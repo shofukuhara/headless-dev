@@ -1,0 +1,59 @@
+{
+  "name": "project",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "style:lint": "stylelint \"src/assets/**/*.scss\" --fix --config ./config/.stylelintrc",
+    "format": "prettier --write . --config ./config/.prettierrc.json --ignore-path ./config/.prettierignore",
+    "format:php": "prettier --write _php/index.php --config ./config/.prettierrc.json",
+    "addLicense": "node ./config/_add-license.mjs",
+    "renameToPhp": "node ./config/_rename-index-to-php.mjs",
+    "compressedImage": "node ./config/_compressed-images.mjs",
+    "pick-and-paste": "node ./config/_pick-and-paste.mjs",
+    "copy:assets": "cpx \"dist/assets/**/*\" wp/wp-content/themes/project/assets",
+    "copy:php": "cpx \"dist/assets/**/*\" _php/assets",
+    "dev": "astro dev",
+    "build": "npm run style:lint && astro build && npm run addLicense --mode static && npm run format",
+    "build:wp": "npm run style:lint && astro build && npm run addLicense --mode static && npm run format && npm run copy:assets",
+    "build:php": "npm run style:lint && astro build && npm run addLicense --mode static  && npm run copy:php && npm run pick-and-paste && npm run format",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^5.10.0",
+    "gsap": "^3.13.0",
+    "ua-parser-js": "^2.0.3"
+  },
+  "devDependencies": {
+    "@prettier/plugin-php": "^0.24.0",
+    "@rollup/plugin-terser": "^0.4.4",
+    "astro-compress": "^2.3.5",
+    "astro-relative-links": "^0.4.2",
+    "autoprefixer": "^10.4.20",
+    "cpx": "^1.5.0",
+    "css-declaration-sorter": "^7.2.0",
+    "jsdom": "^27.2.0",
+    "postcss-sort-media-queries": "^5.2.0",
+    "prettier": "^3.4.2",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "rollup-plugin-license": "^3.5.3",
+    "sass-embedded": "^1.83.0",
+    "sharp": "^0.34.5",
+    "stylelint": "^16.13.2",
+    "stylelint-config-property-sort-order-smacss": "^10.0.0",
+    "stylelint-config-recommended-scss": "^14.1.0",
+    "stylelint-order": "^6.0.4",
+    "stylelint-prettier": "^5.0.3",
+    "stylelint-scss": "^6.10.1",
+    "svgo": "^4.0.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%"
+  ],
+  "volta": {
+    "node": "22.12.0",
+    "npm": "10.9.0"
+  }
+}

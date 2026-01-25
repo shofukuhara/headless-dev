@@ -1,0 +1,50 @@
+root = true
+
+# デフォルト設定(全ファイル)
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# HTML
+[*.html]
+indent_size = 2
+max_line_length = 120
+
+# Astro
+[*.astro]
+indent_size = 2
+max_line_length = 100
+
+# PHP
+[*.php]
+indent_size = 2
+max_line_length = 120
+
+# JavaScript/TypeScript
+[*.{js,jsx,ts,tsx}]
+indent_size = 2
+max_line_length = 100
+
+# JSON
+[*.{json,jsonc}]
+indent_size = 2
+max_line_length = 80
+
+# Markdown
+[*.md]
+indent_size = 2
+max_line_length = 80
+trim_trailing_whitespace = false
+
+# CSS/SCSS
+[*.{css,scss}]
+indent_size = 2
+max_line_length = 100
+
+# YAML
+[*.{yml,yaml}]
+indent_size = 2

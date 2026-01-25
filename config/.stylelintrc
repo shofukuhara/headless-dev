@@ -1,0 +1,49 @@
+{
+  "extends": [
+    "stylelint-config-recommended-scss",
+    "stylelint-config-property-sort-order-smacss",
+    "stylelint-prettier/recommended",
+    "stylelint-prettier"
+  ],
+  "plugins": ["stylelint-prettier", "stylelint-scss", "stylelint-order"],
+  "ignoreFiles": ["../src/assets/css/foundation/setting/_reset.scss"],
+  "rules": {
+    "prettier/prettier": true,
+    "font-family-name-quotes": "always-where-recommended",
+    "shorthand-property-no-redundant-values": true,
+    "value-keyword-case": "lower",
+    "scss/operator-no-unspaced": null,
+    "no-descending-specificity": null,
+    "order/properties-alphabetical-order": null,
+    "no-unknown-animations": true,
+    "no-empty-source": null,
+    "order/order": [
+      "custom-properties",
+      "dollar-variables",
+      "at-variables",
+      "declarations",
+      "rules"
+    ],
+    "order/properties-order": [
+      "position",
+      "top",
+      "right",
+      "bottom",
+      "left",
+      "z-index",
+      "display",
+      "flex",
+      "flex-direction",
+      "align-items",
+      "justify-content",
+      "width",
+      "height",
+      "margin",
+      "padding",
+      "background",
+      "color",
+      "font-family",
+      "font-size"
+    ]
+  }
+}
