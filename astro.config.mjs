@@ -1,6 +1,6 @@
 import relativeLinks from "astro-relative-links";
 import { defineConfig } from "astro/config";
-import { getRemoteAssets } from "astro:assets";
+// import { getRemoteAssets } from "astro:assets";
 import path from "path";
 import license from "rollup-plugin-license";
 
@@ -54,10 +54,10 @@ export default defineConfig({
   compressHTML: false,
   integrations: [
     relativeLinks(),
-    getRemoteAssets({
-      url: import.meta.env.WP_URL,
-      imageDir: "assets/images",
-    })
+    // getRemoteAssets({
+    //   url: import.meta.env.WP_URL,
+    //   imageDir: "assets/images",
+    // })
   ],
   vite: {
     build: {
