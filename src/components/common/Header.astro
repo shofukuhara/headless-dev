@@ -1,0 +1,120 @@
+---
+// src/components/Header.astro
+---
+
+<header class="header">
+  <nav class="container nav">
+    <a href="/" class="logo">CORPORATE</a>
+    <ul class="nav-links">
+      <li><a href="/">ホーム</a></li>
+      <li><a href="/about">会社概要</a></li>
+      <li><a href="/service">サービス</a></li>
+      <li><a href="/news">ニュース</a></li>
+      <li><a href="/contact" class="btn-contact">お問い合わせ</a></li>
+    </ul>
+    <button class="menu-toggle" aria-label="メニュー">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+</header>
+
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --text: #0f172a;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover {
+    color: var(--primary);
+  }
+
+  .btn-contact {
+    padding: 10px 24px;
+    background: var(--primary);
+    color: white !important;
+    border-radius: 6px;
+    transition: background 0.3s;
+  }
+
+  .btn-contact:hover {
+    background: var(--primary-dark);
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background: var(--text);
+    border-radius: 2px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+
+    .menu-toggle {
+      display: flex;
+    }
+  }
+</style>

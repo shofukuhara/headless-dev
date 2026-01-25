@@ -1,21 +1,405 @@
 ---
-import Title from "@/components/elements/Title .astro";
-import Button from "@/components/ui/Button.astro";
-import Card from "@/components/ui/Card.astro";
+import Footer from "@/components/common/Footer.astro";
+import Header from "@/components/common/Header.astro";
 import Base from "@/layouts/Base.astro";
+
+const news = [
+  {
+    date: "2026.01.20",
+    category: "お知らせ",
+    title: "新サービス「クラウドソリューション Pro」をリリースしました",
+  },
+  { date: "2026.01.15", category: "プレスリリース", title: "東京オフィス拡張移転のお知らせ" },
+  { date: "2026.01.10", category: "お知らせ", title: "年末年始の営業日について" },
+];
 ---
 
 <Base pageMeta="home" pageData="home">
-  <Title text="Hello world" className="title" style="color:red;" data-item="" data-scroll="" />
-  <Button href="" target="_blank" className="__primary" text="button" data-item="" data-scroll="" />
-  <Card
-    href="/"
-    target="_blank"
-    className="__primary"
-    image_pc="@/assets/images/"
-    image_sp="@/assets/images/"
-    title="card title"
-    description="card descriptiom"
-  />
-  <style lang="scss" is:global></style>
+  <Header />
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          革新的なソリューションで<br />
+          ビジネスの未来を創造
+        </h1>
+        <p class="hero-description">
+          最新のテクノロジーと確かな実績で、<br class="sp-only" />
+          お客様のビジネス成長をサポートします
+        </p>
+        <div class="hero-buttons">
+          <a href="/contact" class="btn btn-primary">お問い合わせ</a>
+          <a href="/service" class="btn btn-outline">サービス一覧</a>
+        </div>
+      </div>
+      <div class="hero-bg"></div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services">
+      <div class="container">
+        <h2 class="section-title">サービス</h2>
+        <p class="section-description">お客様のニーズに合わせた最適なソリューションを提供します</p>
+
+        <div class="service-grid">
+          <div class="service-card">
+            <div class="service-icon">
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
+                ></path>
+                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+              </svg>
+            </div>
+            <h3>Webコンサルティング</h3>
+            <p>戦略立案から実行まで、デジタルマーケティングの成功をトータルサポート</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <h3>システム開発</h3>
+            <p>最新技術を駆使したスケーラブルで高品質なシステムを開発</p>
+          </div>
+
+          <div class="service-card">
+            <div class="service-icon">
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+              </svg>
+            </div>
+            <h3>クラウドソリューション</h3>
+            <p>柔軟で安全なクラウド環境の構築・運用をサポート</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section">
+      <div class="container">
+        <h2 class="section-title">ニュース</h2>
+        <div class="news-list">
+          {
+            news.map((item) => (
+              <a href="/news" class="news-item">
+                <time class="news-date">{item.date}</time>
+                <span class="news-category">{item.category}</span>
+                <h3 class="news-title">{item.title}</h3>
+              </a>
+            ))
+          }
+        </div>
+        <div class="news-more">
+          <a href="/news" class="btn btn-outline">すべてのニュースを見る</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="container cta-content">
+        <h2>お気軽にご相談ください</h2>
+        <p>プロジェクトのご相談やお見積もりなど、まずはお問い合わせフォームからご連絡ください</p>
+        <a href="/contact" class="btn btn-white">お問い合わせ</a>
+      </div>
+    </section>
+  </main>
+  <Footer />
 </Base>
+
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --primary-light: #dbeafe;
+    --text: #0f172a;
+    --text-light: #64748b;
+    --bg-gray: #f8fafc;
+    --border: #e2e8f0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.2) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.2) 0%, transparent 50%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 0 20px;
+  }
+
+  .hero-title {
+    font-size: 56px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  .hero-description {
+    font-size: 20px;
+    margin-bottom: 40px;
+    opacity: 0.95;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 14px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: white;
+    color: var(--primary);
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn-outline {
+    border: 2px solid white;
+    color: white;
+  }
+
+  .btn-outline:hover {
+    background: white;
+    color: var(--primary);
+  }
+
+  /* Services */
+  .services {
+    padding: 120px 0;
+    background: var(--bg-gray);
+  }
+
+  .section-title {
+    font-size: 42px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+
+  .section-description {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 18px;
+    margin-bottom: 60px;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 32px;
+  }
+
+  .service-card {
+    background: white;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s;
+  }
+
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .service-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+
+  .service-card h3 {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+
+  .service-card p {
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+
+  /* News */
+  .news-section {
+    padding: 120px 0;
+  }
+
+  .news-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .news-item {
+    display: grid;
+    grid-template-columns: 120px 140px 1fr;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: background 0.3s;
+    align-items: center;
+  }
+
+  .news-item:hover {
+    background: var(--bg-gray);
+  }
+
+  .news-date {
+    color: var(--text-light);
+    font-size: 14px;
+  }
+
+  .news-category {
+    padding: 6px 14px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+  }
+
+  .news-title {
+    color: var(--text);
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .news-more {
+    text-align: center;
+    margin-top: 48px;
+  }
+
+  /* CTA */
+  .cta {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    padding: 100px 0;
+    color: white;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+
+  .cta-content p {
+    font-size: 18px;
+    margin-bottom: 32px;
+    opacity: 0.95;
+  }
+
+  .btn-white {
+    background: white;
+    color: var(--primary);
+  }
+
+  .btn-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .sp-only {
+    display: none;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 36px;
+    }
+
+    .hero-description {
+      font-size: 16px;
+    }
+
+    .section-title {
+      font-size: 32px;
+    }
+
+    .service-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .news-item {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .sp-only {
+      display: inline;
+    }
+  }
+</style>
