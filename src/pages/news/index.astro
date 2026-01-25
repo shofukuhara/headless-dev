@@ -1,0 +1,431 @@
+---
+import Footer from "@/components/common/Footer.astro";
+import Header from "@/components/common/Header.astro";
+import Base from "@/layouts/Base.astro";
+
+const newsList = [
+  {
+    id: 1,
+    date: "2026.01.20",
+    category: "お知らせ",
+    title: "新サービス「クラウドソリューション Pro」をリリースしました",
+    excerpt: "より高度なセキュリティと拡張性を備えた新しいクラウドサービスの提供を開始いたしました。",
+    slug: "cloud-solution-pro-release"
+  },
+  {
+    id: 2,
+    date: "2026.01.15",
+    category: "プレスリリース",
+    title: "東京オフィス拡張移転のお知らせ",
+    excerpt: "事業拡大に伴い、2026年3月1日より東京オフィスを移転・拡張することになりました。",
+    slug: "office-relocation"
+  },
+  {
+    id: 3,
+    date: "2026.01.10",
+    category: "お知らせ",
+    title: "年末年始の営業日について",
+    excerpt: "誠に勝手ながら、下記の期間を年末年始休業とさせていただきます。",
+    slug: "year-end-holidays"
+  },
+  {
+    id: 4,
+    date: "2025.12.25",
+    category: "イベント",
+    title: "「DX推進セミナー 2026」開催のお知らせ",
+    excerpt: "2026年2月15日に、企業のデジタル変革をテーマにしたセミナーを開催いたします。",
+    slug: "dx-seminar-2026"
+  },
+  {
+    id: 5,
+    date: "2025.12.18",
+    category: "プレスリリース",
+    title: "大手製造業A社との業務提携契約締結について",
+    excerpt: "製造業向けIoTソリューションの共同開発に関する業務提携契約を締結いたしました。",
+    slug: "partnership-announcement"
+  },
+  {
+    id: 6,
+    date: "2025.12.10",
+    category: "お知らせ",
+    title: "ISO27001認証を取得しました",
+    excerpt: "情報セキュリティマネジメントシステムの国際規格ISO27001の認証を取得いたしました。",
+    slug: "iso27001-certification"
+  },
+  {
+    id: 7,
+    date: "2025.12.01",
+    category: "サービス",
+    title: "AIチャットボットサービスの提供開始",
+    excerpt: "最新のAI技術を活用したカスタマーサポート向けチャットボットサービスを開始しました。",
+    slug: "ai-chatbot-service"
+  },
+  {
+    id: 8,
+    date: "2025.11.20",
+    category: "イベント",
+    title: "技術カンファレンス「Tech Summit 2025」に登壇",
+    excerpt: "当社CTOが最新のクラウド技術について講演を行いました。",
+    slug: "tech-summit-2025"
+  },
+  {
+    id: 9,
+    date: "2025.11.10",
+    category: "お知らせ",
+    title: "福岡支社開設のお知らせ",
+    excerpt: "九州エリアでのサービス拡充のため、福岡市に新たな支社を開設いたしました。",
+    slug: "fukuoka-office-opening"
+  },
+  {
+    id: 10,
+    date: "2025.11.01",
+    category: "プレスリリース",
+    title: "採用活動強化について - 新卒・中途採用を積極募集",
+    excerpt: "事業拡大に伴い、エンジニア、デザイナー、営業職など幅広く人材を募集しています。",
+    slug: "recruitment-announcement"
+  },
+  {
+    id: 11,
+    date: "2025.10.25",
+    category: "サービス",
+    title: "Webサイト高速化支援サービスを開始",
+    excerpt: "Core Web Vitals最適化を含む、包括的なWebパフォーマンス改善サービスを提供開始。",
+    slug: "web-performance-service"
+  },
+  {
+    id: 12,
+    date: "2025.10.15",
+    category: "お知らせ",
+    title: "創立10周年を迎えました",
+    excerpt: "2015年の創業から10周年を迎えることができました。これまでのご支援に感謝申し上げます。",
+    slug: "10th-anniversary"
+  }
+];
+
+const categories = ["すべて", "お知らせ", "プレスリリース", "サービス", "イベント"];
+---
+
+<Base pageMeta="news" pageData="news">
+  <Header />
+  <main>
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="page-title">ニュース</h1>
+        <p class="page-description">News</p>
+      </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="news-section">
+      <div class="container">
+        <!-- Category Filter -->
+        <div class="category-filter">
+          {categories.map((cat) => (
+            <button class={cat === "すべて" ? "category-btn active" : "category-btn"}>
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        <!-- News List -->
+        <div class="news-list">
+          {newsList.map((news) => (
+            <article class="news-card">
+              <a href={`/news/${news.slug}`} class="news-link">
+                <div class="news-meta">
+                  <time class="news-date">{news.date}</time>
+                  <span class={`news-category category-${news.category}`}>
+                    {news.category}
+                  </span>
+                </div>
+                <h2 class="news-title">{news.title}</h2>
+                <p class="news-excerpt">{news.excerpt}</p>
+                <div class="read-more">
+                  続きを読む
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <button class="pagination-btn disabled">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="pagination-btn active">1</button>
+          <button class="pagination-btn">2</button>
+          <button class="pagination-btn">3</button>
+          <span class="pagination-dots">...</span>
+          <button class="pagination-btn">10</button>
+          <button class="pagination-btn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --primary-light: #dbeafe;
+    --text: #0f172a;
+    --text-light: #64748b;
+    --bg-gray: #f8fafc;
+    --border: #e2e8f0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Page Hero */
+  .page-hero {
+    padding: 180px 0 100px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .page-description {
+    font-size: 18px;
+    opacity: 0.9;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* News Section */
+  .news-section {
+    padding: 120px 0;
+    background: var(--bg-gray);
+  }
+
+  /* Category Filter */
+  .category-filter {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .category-btn {
+    padding: 10px 24px;
+    background: white;
+    color: var(--text-light);
+    border: 2px solid var(--border);
+    border-radius: 24px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .category-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  .category-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+
+  /* News List */
+  .news-list {
+    display: grid;
+    gap: 32px;
+    margin-bottom: 60px;
+  }
+
+  .news-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s;
+  }
+
+  .news-card:hover {
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+  }
+
+  .news-link {
+    display: block;
+    padding: 32px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .news-meta {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .news-date {
+    color: var(--text-light);
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .news-category {
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .category-お知らせ {
+    background: #dbeafe;
+    color: #2563eb;
+  }
+
+  .category-プレスリリース {
+    background: #fce7f3;
+    color: #ec4899;
+  }
+
+  .category-サービス {
+    background: #dcfce7;
+    color: #16a34a;
+  }
+
+  .category-イベント {
+    background: #fef3c7;
+    color: #f59e0b;
+  }
+
+  .news-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .news-excerpt {
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 14px;
+    transition: gap 0.3s;
+  }
+
+  .news-card:hover .read-more {
+    gap: 12px;
+  }
+
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .pagination-btn {
+    min-width: 44px;
+    height: 44px;
+    padding: 0 12px;
+    background: white;
+    color: var(--text);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pagination-btn:hover:not(.disabled) {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  .pagination-btn.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+
+  .pagination-btn.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .pagination-dots {
+    padding: 0 8px;
+    color: var(--text-light);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .page-title {
+      font-size: 36px;
+    }
+
+    .category-filter {
+      justify-content: flex-start;
+    }
+
+    .news-link {
+      padding: 24px;
+    }
+
+    .news-title {
+      font-size: 18px;
+    }
+
+    .pagination {
+      flex-wrap: wrap;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const categoryButtons = document.querySelectorAll('.category-btn');
+
+    categoryButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        categoryButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+  });
+</script>

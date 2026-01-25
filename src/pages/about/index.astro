@@ -1,0 +1,480 @@
+---
+import Footer from "@/components/common/Footer.astro";
+import Header from "@/components/common/Header.astro";
+import Base from "@/layouts/Base.astro";
+
+const companyInfo = {
+  name: "株式会社CORPORATE",
+  nameEn: "CORPORATE Inc.",
+  established: "2015年4月1日",
+  capital: "5,000万円",
+  ceo: "代表取締役社長 山田 太郎",
+  employees: "150名（2026年1月現在）",
+  headquarters: {
+    zip: "〒100-0001",
+    address: "東京都千代田区千代田1-1-1 CORPORATEビル",
+    tel: "03-1234-5678",
+    fax: "03-1234-5679",
+  },
+  offices: [
+    {
+      name: "大阪支社",
+      address: "大阪府大阪市北区梅田1-1-1",
+    },
+    {
+      name: "名古屋支社",
+      address: "愛知県名古屋市中村区名駅1-1-1",
+    },
+    {
+      name: "福岡支社",
+      address: "福岡県福岡市博多区博多駅前1-1-1",
+    },
+  ],
+  business: [
+    "Webコンサルティング事業",
+    "システム開発事業",
+    "クラウドソリューション事業",
+    "デジタルマーケティング事業",
+    "ITインフラ構築・運用事業",
+  ],
+  clients: ["製造業", "金融業", "小売業", "サービス業", "官公庁・自治体"],
+};
+
+const certifications = [
+  "ISO9001認証取得",
+  "ISO27001（ISMS）認証取得",
+  "プライバシーマーク取得",
+  "AWS公認パートナー",
+];
+---
+
+<Base pageMeta="company" pageData="company">
+  <Header />
+  <main>
+    <!-- Page Hero -->
+    <section class="page-hero">
+      <div class="container">
+        <h1 class="page-title">会社概要</h1>
+        <p class="page-description">Company Profile</p>
+      </div>
+    </section>
+
+    <!-- Company Overview -->
+    <section class="overview-section">
+      <div class="container">
+        <div class="company-table">
+          <div class="table-row">
+            <div class="table-label">会社名</div>
+            <div class="table-content">
+              <div>{companyInfo.name}</div>
+              <div class="sub-text">{companyInfo.nameEn}</div>
+            </div>
+          </div>
+
+          <div class="table-row">
+            <div class="table-label">設立</div>
+            <div class="table-content">{companyInfo.established}</div>
+          </div>
+
+          <div class="table-row">
+            <div class="table-label">資本金</div>
+            <div class="table-content">{companyInfo.capital}</div>
+          </div>
+
+          <div class="table-row">
+            <div class="table-label">代表者</div>
+            <div class="table-content">{companyInfo.ceo}</div>
+          </div>
+
+          <div class="table-row">
+            <div class="table-label">従業員数</div>
+            <div class="table-content">{companyInfo.employees}</div>
+          </div>
+
+          <div class="table-row">
+            <div class="table-label">本社所在地</div>
+            <div class="table-content">
+              <div>{companyInfo.headquarters.zip}</div>
+              <div>{companyInfo.headquarters.address}</div>
+              <div class="contact-info">
+                <span>TEL: {companyInfo.headquarters.tel}</span>
+                <span>FAX: {companyInfo.headquarters.fax}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="table-row">
+            <div class="table-label">支社</div>
+            <div class="table-content">
+              <ul class="offices-list">
+                {
+                  companyInfo.offices.map((office) => (
+                    <li>
+                      <strong>{office.name}</strong>
+                      <span>{office.address}</span>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+
+          <div class="table-row">
+            <div class="table-label">事業内容</div>
+            <div class="table-content">
+              <ul class="business-list">
+                {companyInfo.business.map((item) => <li>{item}</li>)}
+              </ul>
+            </div>
+          </div>
+
+          <div class="table-row">
+            <div class="table-label">主要取引先</div>
+            <div class="table-content">
+              <div class="clients-grid">
+                {companyInfo.clients.map((client) => <span class="client-badge">{client}</span>)}
+              </div>
+            </div>
+          </div>
+
+          <div class="table-row">
+            <div class="table-label">認証・資格</div>
+            <div class="table-content">
+              <ul class="cert-list">
+                {certifications.map((cert) => <li>{cert}</li>)}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Access Section -->
+    <section class="access-section">
+      <div class="container">
+        <h2 class="section-title">アクセス</h2>
+        <div class="access-content">
+          <div class="map-placeholder">
+            <div class="map-text">
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <p>本社：東京都千代田区千代田1-1-1</p>
+              <p class="sub">最寄り駅より徒歩5分</p>
+            </div>
+          </div>
+          <div class="access-info">
+            <h3>本社へのアクセス</h3>
+            <ul>
+              <li><strong>東京メトロ丸ノ内線</strong> 「大手町駅」より徒歩5分</li>
+              <li><strong>JR山手線</strong> 「東京駅」より徒歩10分</li>
+              <li><strong>都営三田線</strong> 「大手町駅」より徒歩5分</li>
+            </ul>
+            <p class="note">※お車でお越しの際は、近隣の有料駐車場をご利用ください</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="container cta-content">
+        <h2>お気軽にご相談ください</h2>
+        <p>プロジェクトのご相談やお見積もりなど、まずはお問い合わせフォームからご連絡ください</p>
+        <a href="/contact" class="btn btn-white">お問い合わせ</a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  :root {
+    --primary: #2563eb;
+    --primary-dark: #1e40af;
+    --primary-light: #dbeafe;
+    --text: #0f172a;
+    --text-light: #64748b;
+    --bg-gray: #f8fafc;
+    --border: #e2e8f0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Page Hero */
+  .page-hero {
+    padding: 180px 0 100px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .page-description {
+    font-size: 18px;
+    opacity: 0.9;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* Overview Section */
+  .overview-section {
+    padding: 120px 0;
+    background: white;
+  }
+
+  .company-table {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .table-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 40px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .table-row:first-child {
+    padding-top: 0;
+  }
+
+  .table-label {
+    font-weight: 700;
+    color: var(--text);
+    font-size: 16px;
+  }
+
+  .table-content {
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+
+  .sub-text {
+    color: var(--text-light);
+    font-size: 14px;
+    margin-top: 4px;
+  }
+
+  .contact-info {
+    display: flex;
+    gap: 24px;
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  .offices-list,
+  .business-list,
+  .cert-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .offices-list li {
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .offices-list strong {
+    color: var(--text);
+  }
+
+  .business-list li,
+  .cert-list li {
+    padding: 8px 0;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .business-list li::before,
+  .cert-list li::before {
+    content: "・";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+  }
+
+  .clients-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .client-badge {
+    padding: 8px 16px;
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  /* Access Section */
+  .access-section {
+    padding: 120px 0;
+    background: var(--bg-gray);
+  }
+
+  .section-title {
+    font-size: 42px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .access-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+
+  .map-placeholder {
+    background: linear-gradient(135deg, var(--primary-light) 0%, #e0e7ff 100%);
+    border-radius: 16px;
+    padding: 80px 40px;
+    text-align: center;
+  }
+
+  .map-text {
+    color: var(--primary);
+  }
+
+  .map-text svg {
+    margin-bottom: 16px;
+  }
+
+  .map-text p {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .map-text .sub {
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0.8;
+  }
+
+  .access-info h3 {
+    font-size: 24px;
+    margin-bottom: 24px;
+    color: var(--text);
+  }
+
+  .access-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px 0;
+  }
+
+  .access-info li {
+    padding: 12px 0;
+    color: var(--text-light);
+    line-height: 1.8;
+  }
+
+  .access-info strong {
+    color: var(--primary);
+    margin-right: 8px;
+  }
+
+  .note {
+    font-size: 14px;
+    color: var(--text-light);
+    padding: 16px;
+    background: white;
+    border-radius: 8px;
+    border-left: 3px solid var(--primary);
+  }
+
+  /* CTA */
+  .cta {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    padding: 100px 0;
+    color: white;
+    text-align: center;
+  }
+
+  .cta-content h2 {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+
+  .cta-content p {
+    font-size: 18px;
+    margin-bottom: 32px;
+    opacity: 0.95;
+  }
+
+  .btn {
+    padding: 14px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+
+  .btn-white {
+    background: white;
+    color: var(--primary);
+  }
+
+  .btn-white:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .page-title {
+      font-size: 36px;
+    }
+
+    .section-title {
+      font-size: 32px;
+    }
+
+    .table-row {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .contact-info {
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .access-content {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .map-placeholder {
+      padding: 60px 20px;
+    }
+  }
+</style>
