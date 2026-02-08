@@ -12,39 +12,57 @@ indent_size = 2
 # HTML
 [*.html]
 indent_size = 2
-max_line_length = 120
 
 # Astro
 [*.astro]
 indent_size = 2
-max_line_length = 100
 
 # PHP
 [*.php]
 indent_size = 2
-max_line_length = 120
 
-# JavaScript/TypeScript
-[*.{js,jsx,ts,tsx}]
+# JavaScript/TypeScript (ES/CJS含む)
+[*.{js,jsx,ts,tsx,mjs,cjs}]
 indent_size = 2
-max_line_length = 100
 
 # JSON
 [*.{json,jsonc}]
 indent_size = 2
-max_line_length = 80
 
-# Markdown
+# package.json (スペース2つが推奨)
+[package.json]
+indent_size = 2
+
+# 設定ファイル
+[{.prettierrc,.eslintrc,.babelrc,.stylelintrc}]
+indent_size = 2
+
+# 環境変数ファイル
+[.env*]
+indent_size = 2
+
+# Markdown (末尾空白を保持)
 [*.md]
 indent_size = 2
-max_line_length = 80
 trim_trailing_whitespace = false
 
-# CSS/SCSS
-[*.{css,scss}]
+# CSS/SCSS/PostCSS
+[*.{css,scss,postcss}]
 indent_size = 2
-max_line_length = 100
 
 # YAML
 [*.{yml,yaml}]
 indent_size = 2
+
+# SVG/画像関連ファイル (末尾空白処理を無効化)
+[*.{svg,xml}]
+insert_final_newline = false
+trim_trailing_whitespace = false
+
+# Makefiles (タブが必須)
+[Makefile]
+indent_style = tab
+
+# バッチファイル
+[*.{bat,cmd}]
+end_of_line = crlf

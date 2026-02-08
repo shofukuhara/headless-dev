@@ -17,7 +17,8 @@
     "build:wp": "npm run style:lint && astro build && npm run addLicense --mode static && npm run format && npm run copy:assets",
     "build:php": "npm run style:lint && astro build && npm run addLicense --mode static  && npm run copy:php && npm run pick-and-paste && npm run format",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "wp-env": "wp-env"
   },
   "dependencies": {
     "astro": "^5.10.0",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@prettier/plugin-php": "^0.24.0",
     "@rollup/plugin-terser": "^0.4.4",
+    "@wordpress/env": "^10.39.0",
     "astro-compress": "^2.3.5",
     "astro-relative-links": "^0.4.2",
     "autoprefixer": "^10.4.20",
