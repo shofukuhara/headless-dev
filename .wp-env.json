@@ -1,4 +1,5 @@
 {
-  "core": "WordPress/WordPress#6.9",
-  "phpVersion": "8.2"
+  "core": "WordPress/WordPress",
+  "themes": ["./headless-dev"],
+  "plugins": ["wp-graphql", "advanced-custom-fields"]
 }

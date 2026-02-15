@@ -15,7 +15,7 @@ jobs:
       - name: Node.js をセットアップ
         uses: actions/setup-node@v3
         with:
-          node-version: '22.12.0'
+          node-version: "22.12.0"
 
       - name: パッケージインストール
         run: npm ci
