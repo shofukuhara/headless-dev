@@ -1,5 +1,8 @@
 {
   "core": "WordPress/WordPress",
   "themes": ["./headless-dev"],
-  "plugins": ["wp-graphql", "advanced-custom-fields"]
+  "plugins": [
+    "https://downloads.wordpress.org/plugin/wp-graphql.zip",
+    "https://downloads.wordpress.org/plugin/advanced-custom-fields.zip"
+  ]
 }

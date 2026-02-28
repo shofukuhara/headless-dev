@@ -2,16 +2,35 @@
 import Footer from "@/components/common/Footer.astro";
 import Header from "@/components/common/Header.astro";
 import Base from "@/layouts/Base.astro";
+import { fetchGraphQL } from "@/lib/graphql.js";
 
-const news = [
-  {
-    date: "2026.01.20",
-    category: "お知らせ",
-    title: "新サービス「クラウドソリューション Pro」をリリースしました",
-  },
-  { date: "2026.01.15", category: "プレスリリース", title: "東京オフィス拡張移転のお知らせ" },
-  { date: "2026.01.10", category: "お知らせ", title: "年末年始の営業日について" },
-];
+const data = await fetchGraphQL(`
+  query {
+    posts(first: 1) {
+      nodes {
+        title
+        date
+        categories {
+          nodes {
+            name
+          }
+        }
+      }
+    }
+  }
+`);
+
+const news = data.posts.nodes.map((post) => ({
+  date: new Date(post.date)
+    .toLocaleDateString("ja-JP", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .replace(/\//g, "."),
+  category: post.categories.nodes[0]?.name ?? "お知らせ",
+  title: post.title,
+}));
 ---
 
 <Base pageMeta="home" pageData="home">
@@ -40,7 +59,9 @@ const news = [
     <section class="services">
       <div class="container">
         <h2 class="section-title">サービス</h2>
-        <p class="section-description">お客様のニーズに合わせた最適なソリューションを提供します</p>
+        <p class="section-description">
+          お客様のニーズに合わせた最適なソリューションを提供します
+        </p>
 
         <div class="service-grid">
           <div class="service-card">
@@ -55,14 +76,15 @@ const news = [
               >
                 <path
                   d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"
-                >
-                </path>
+                ></path>
                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
               </svg>
             </div>
             <h3>Webコンサルティング</h3>
-            <p>戦略立案から実行まで、デジタルマーケティングの成功をトータルサポート</p>
+            <p>
+              戦略立案から実行まで、デジタルマーケティングの成功をトータルサポート
+            </p>
           </div>
 
           <div class="service-card">
@@ -129,7 +151,9 @@ const news = [
     <section class="cta">
       <div class="container cta-content">
         <h2>お気軽にご相談ください</h2>
-        <p>プロジェクトのご相談やお見積もりなど、まずはお問い合わせフォームからご連絡ください</p>
+        <p>
+          プロジェクトのご相談やお見積もりなど、まずはお問い合わせフォームからご連絡ください
+        </p>
         <a href="/contact" class="btn btn-white">お問い合わせ</a>
       </div>
     </section>
@@ -154,7 +178,6 @@ const news = [
     padding: 0 20px;
   }
 
-  /* Hero */
   .hero {
     position: relative;
     min-height: 100vh;
@@ -168,8 +191,16 @@ const news = [
   .hero-bg {
     position: absolute;
     inset: 0;
-    background: radial-gradient(circle at 20% 50%, rgba(37, 99, 235, 0.2) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.2) 0%, transparent 50%);
+    background: radial-gradient(
+        circle at 20% 50%,
+        rgba(37, 99, 235, 0.2) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 80%,
+        rgba(139, 92, 246, 0.2) 0%,
+        transparent 50%
+      );
   }
 
   .hero-content {
@@ -230,7 +261,6 @@ const news = [
     color: var(--primary);
   }
 
-  /* Services */
   .services {
     padding: 120px 0;
     background: var(--bg-gray);
@@ -291,7 +321,6 @@ const news = [
     line-height: 1.8;
   }
 
-  /* News */
   .news-section {
     padding: 120px 0;
   }
@@ -343,9 +372,12 @@ const news = [
     margin-top: 48px;
   }
 
-  /* CTA */
   .cta {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(
+      135deg,
+      var(--primary) 0%,
+      var(--primary-dark) 100%
+    );
     padding: 100px 0;
     color: white;
     text-align: center;
@@ -376,7 +408,6 @@ const news = [
     display: none;
   }
 
-  /* Responsive */
   @media (max-width: 768px) {
     .hero-title {
       font-size: 36px;
