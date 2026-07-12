@@ -1,0 +1,208 @@
+---
+// src/pages/index.astro
+import Button from "../components/ui/Button.astro";
+import Layout from "../layouts/Layout.astro";
+import { getColumns } from "../library/column";
+
+const { contents } = await getColumns();
+const latestColumns = contents.slice(0, 3);
+
+function formatDate(dateStr?: string) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(
+    d.getDate(),
+  ).padStart(2, "0")}`;
+}
+---
+
+<Layout title="Top">
+  <section class="hero">
+    <img src="fv.jpg" alt="" />
+  </section>
+  <section class="section">
+    <div class="inner">
+      <div class="section-head">
+        <h2>Works</h2>
+      </div>
+      <ul class="grid">
+        <li class="item">
+          <img src="dummy.png" alt="" />
+        </li>
+        <li class="item">
+          <img src="dummy.png" alt="" />
+        </li>
+        <li class="item">
+          <img src="dummy.png" alt="" />
+        </li>
+      </ul>
+      <div class="more">
+        <Button href="/works">Worksをもっと見る</Button>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="inner">
+      <div class="section-head">
+        <h2>Column</h2>
+      </div>
+      <ul class="grid">
+        {
+          latestColumns.map((item) => (
+            <li class="card">
+              <a href={`/column/${item.id}`}>
+                <div class="thumb">
+                  <img src={item.mainVisual.url} alt="" loading="lazy" />
+                </div>
+                <p class="title">{item.title}</p>
+                {item.publishedAt && (
+                  <time class="date" datetime={item.publishedAt}>
+                    {formatDate(item.publishedAt)}
+                  </time>
+                )}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="more">
+        <Button href="/column">Columnをもっと見る</Button>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .inner {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+
+  /* FV (Hero) */
+  .hero img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 5;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  /* Section (Works / Column) */
+  .section {
+    padding-top: 160px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 40px;
+  }
+
+  .section-head h2 {
+    font-size: var(--font-size-xl);
+    font-weight: 500;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .item {
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+  }
+
+  .item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .card a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .thumb {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-subtle);
+  }
+
+  .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+  }
+
+  .card a:hover .thumb img {
+    transform: scale(1.04);
+  }
+
+  .title {
+    margin: 12px 0 6px;
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-text);
+  }
+
+  .card a:hover .title {
+    text-decoration: underline;
+  }
+
+  .date {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .more {
+    width: fit-content;
+    margin: 48px auto 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .more:hover {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .hero img {
+      aspect-ratio: 3 / 2;
+    }
+
+    .section {
+      padding: 56px 0;
+    }
+
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+  }
+</style>
