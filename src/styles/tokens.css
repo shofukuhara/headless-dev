@@ -15,12 +15,12 @@
   --radius-sm: 4px;
 
   /* Typography */
-  --font-size-xs: 12px;   /* small button */
-  --font-size-sm: 13px;   /* meta text: date, footer nav, "もっと見る" */
-  --font-size-base: 15px; /* body / nav standard */
-  --font-size-md: 16px;   /* large button */
-  --font-size-lg: 18px;   /* header logo */
-  --font-size-xl: 28px;   /* section heading */
+  --font-size-xs: 12px; /* small button */
+  --font-size-sm: 13px; /* meta text: date, footer nav, "もっと見る" */
+  --font-size-base: 16px; /* body / nav standard */
+  --font-size-md: 16px; /* large button */
+  --font-size-lg: 18px; /* header logo */
+  --font-size-xl: 40px; /* section heading */
 
   /* Motion */
   --transition-fast: 0.2s ease;

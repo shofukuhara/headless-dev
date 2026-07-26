@@ -8,6 +8,9 @@ const { contents } = await getColumns();
 <Layout title="column">
   <section class="column-list">
     <div class="inner">
+      <div class="column-head">
+        <h2>Column</h2>
+      </div>
       <ul class="grid">
         {
           contents.map((item) => (
@@ -31,79 +34,86 @@ const { contents } = await getColumns();
       </ul>
     </div>
   </section>
-</Layout>
 
-<style>
-  .column-list .inner {
-    max-width: var(--container-width);
-    margin: 0 auto;
-    padding: 160px var(--container-padding);
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px 24px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .card a {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .thumb {
-    aspect-ratio: 16 / 10;
-    overflow: hidden;
-    border-radius: var(--radius-sm);
-    background: var(--color-bg-subtle);
-  }
-
-  .thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform var(--transition-slow);
-  }
-
-  .card a:hover .thumb img {
-    transform: scale(1.04);
-  }
-
-  .title {
-    margin: 12px 0 6px;
-    font-size: var(--font-size-base);
-    line-height: 1.5;
-    color: var(--color-text);
-  }
-
-  .card a:hover .title {
-    text-decoration: underline;
-  }
-
-  .date {
-    display: block;
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-  }
-
-  @media (max-width: 900px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 560px) {
+  <style>
     .column-list .inner {
-      padding: 56px var(--container-padding);
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 160px var(--container-padding);
+    }
+
+    h2 {
+      font-size: var(--font-size-xl);
+      font-weight: 400;
+      color: var(--color-text);
+      margin-bottom: 32px;
     }
 
     .grid {
-      grid-template-columns: 1fr;
-      gap: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px 24px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
-  }
-</style>
+
+    .card a {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .thumb {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      border-radius: var(--radius-sm);
+      background: var(--color-bg-subtle);
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow);
+    }
+
+    .card a:hover .thumb img {
+      transform: scale(1.04);
+    }
+
+    .title {
+      margin: 12px 0 6px;
+      font-size: var(--font-size-base);
+      line-height: 1.5;
+      color: var(--color-text);
+    }
+
+    .card a:hover .title {
+      text-decoration: underline;
+    }
+
+    .date {
+      display: block;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-muted);
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .column-list .inner {
+        padding: 56px var(--container-padding);
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+  </style>
+</Layout>
