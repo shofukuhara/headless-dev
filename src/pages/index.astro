@@ -3,9 +3,11 @@
 import Button from "../components/ui/Button.astro";
 import Layout from "../layouts/Layout.astro";
 import { getColumns } from "../library/column";
+import { optimizeImage } from "../library/microcms";
+import { getWorks } from "../library/works";
 
-const { contents } = await getColumns();
-const latestColumns = contents.slice(0, 3);
+const latestColumns = (await getColumns()).contents.slice(0, 3);
+const latestWorks = (await getWorks()).contents.slice(0, 3);
 
 function formatDate(dateStr?: string) {
   if (!dateStr) return "";
@@ -26,15 +28,19 @@ function formatDate(dateStr?: string) {
         <h2>Works</h2>
       </div>
       <ul class="grid">
-        <li class="item">
-          <img src="dummy.png" alt="" />
-        </li>
-        <li class="item">
-          <img src="dummy.png" alt="" />
-        </li>
-        <li class="item">
-          <img src="dummy.png" alt="" />
-        </li>
+        {
+          latestWorks.map((item) => (
+            <li class="card">
+              <div class="thumb">
+                <img
+                  src={optimizeImage(item.image?.url, { width: 600 })}
+                  alt=""
+                  loading="lazy"
+                />
+              </div>
+            </li>
+          ))
+        }
       </ul>
       <div class="more">
         <Button href="/works">Worksをもっと見る</Button>
@@ -52,7 +58,11 @@ function formatDate(dateStr?: string) {
             <li class="card">
               <a href={`/column/${item.id}`}>
                 <div class="thumb">
-                  <img src={item.mainVisual.url} alt="" loading="lazy" />
+                  <img
+                    src={optimizeImage(item.mainVisual.url)}
+                    alt=""
+                    loading="lazy"
+                  />
                 </div>
                 <p class="title">{item.title}</p>
                 {item.publishedAt && (

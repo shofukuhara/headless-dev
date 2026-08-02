@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { optimizeImage } from "../../library/microcms";
 import { getWorks } from "../../library/works";
 
 const { contents } = await getWorks();
@@ -16,7 +17,11 @@ const { contents } = await getWorks();
           contents.map((item) => (
             <li class="card">
               <div class="thumb">
-                <img src={item.image?.url} alt="" loading="eager" />
+                <img
+                  src={optimizeImage(item.image?.url)}
+                  alt=""
+                  loading="eager"
+                />
               </div>
             </li>
           ))

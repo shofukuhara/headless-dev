@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { getColumn, getColumns } from "../../library/column";
+import { optimizeImage } from "../../library/microcms";
 
 export async function getStaticPaths() {
   const { contents } = await getColumns();
@@ -37,7 +38,10 @@ function formatDate(dateStr?: string) {
       </header>
 
       <div class="main-visual">
-        <img src={column.mainVisual.url} alt={column.title} />
+        <img
+          src={optimizeImage(column.mainVisual.url, { width: 1200 })}
+          alt={column.title}
+        />
       </div>
 
       <div class="prose" set:html={column.contents} />
