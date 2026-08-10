@@ -20,66 +20,66 @@ function formatDate(dateStr?: string) {
 
 <Layout title="Top">
   <section class="hero">
-    <img src="fv.jpg" alt="" />
+    <img src="fv.png" alt="" />
   </section>
-  <section class="section">
-    <div class="inner">
-      <div class="section-head">
-        <h2>Works</h2>
-      </div>
-      <ul class="grid">
-        {
-          latestWorks.map((item) => (
-            <li class="card">
-              <div class="thumb">
-                <img
-                  src={optimizeImage(item.image?.url, { width: 600 })}
-                  alt=""
-                  loading="lazy"
-                />
-              </div>
-            </li>
-          ))
-        }
-      </ul>
-      <div class="more">
-        <Button href="/works">Worksをもっと見る</Button>
-      </div>
-    </div>
-  </section>
-  <section class="section">
-    <div class="inner">
-      <div class="section-head">
-        <h2>Column</h2>
-      </div>
-      <ul class="grid">
-        {
-          latestColumns.map((item) => (
-            <li class="card">
-              <a href={`/column/${item.id}`}>
+  <div class="content">
+    <section class="section">
+      <div class="inner">
+        <div class="section-head">
+          <h2>Works</h2>
+        </div>
+        <ul class="grid">
+          {
+            latestWorks.map((item) => (
+              <li class="card">
                 <div class="thumb">
                   <img
-                    src={optimizeImage(item.mainVisual.url)}
+                    src={optimizeImage(item.image?.url, { width: 600 })}
                     alt=""
                     loading="lazy"
                   />
                 </div>
-                <p class="title">{item.title}</p>
-                {item.publishedAt && (
-                  <time class="date" datetime={item.publishedAt}>
-                    {formatDate(item.publishedAt)}
-                  </time>
-                )}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-      <div class="more">
-        <Button href="/column">Columnをもっと見る</Button>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="more">
+          <Button href="/works">Worksをもっと見る</Button>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
+    <section class="section">
+      <div class="inner">
+        <div class="section-head">
+          <h2>Column</h2>
+        </div>
+        <ul class="grid">
+          {
+            latestColumns.map((item) => (
+              <li class="card">
+                <a href={`/column/${item.id}`}>
+                  <div class="thumb">
+                    <img
+                      src={optimizeImage(item.mainVisual.url)}
+                      alt=""
+                      loading="lazy"
+                    />
+                  </div>
+                  <p class="title">{item.meta.title}</p>
+                  {item.publishedAt && (
+                    <p class="date">{formatDate(item.publishedAt)}</p>
+                  )}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+        <div class="more">
+          <Button href="/column">Columnをもっと見る</Button>
+        </div>
+      </div>
+    </section>
+  </div>
 </Layout>
 
 <style>
@@ -92,16 +92,10 @@ function formatDate(dateStr?: string) {
   /* FV (Hero) */
   .hero img {
     width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 5;
+    aspect-ratio: 16 / 9;
     object-fit: cover;
-    object-position: center;
+    object-position: bottom;
     display: block;
-  }
-
-  /* Section (Works / Column) */
-  .section {
-    padding-top: 160px;
   }
 
   .section-head {
@@ -115,7 +109,6 @@ function formatDate(dateStr?: string) {
     font-size: var(--font-size-xl);
     font-weight: 400;
     color: var(--color-text);
-    margin-bottom: 32px;
   }
 
   .grid {

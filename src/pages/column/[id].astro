@@ -23,24 +23,24 @@ function formatDate(dateStr?: string) {
 }
 ---
 
-<Layout title={column.title}>
+<Layout title={column.meta.title}>
   <article class="column-detail">
     <div class="inner">
       <header class="head">
-        <h1>{column.title}</h1>
-        {
+        <h1>{column.meta.title}</h1>
+        <!-- {
           column.publishedAt && (
             <time class="date" datetime={column.publishedAt}>
               {formatDate(column.publishedAt)}
             </time>
           )
-        }
+        } -->
       </header>
 
       <div class="main-visual">
         <img
           src={optimizeImage(column.mainVisual.url, { width: 1200 })}
-          alt={column.title}
+          alt={column.meta.title}
         />
       </div>
 
@@ -53,7 +53,7 @@ function formatDate(dateStr?: string) {
   .column-detail .inner {
     max-width: 720px;
     margin: 0 auto;
-    padding: 48px 24px 80px;
+    padding: 80px var(--container-padding);
   }
 
   .head {
@@ -63,19 +63,19 @@ function formatDate(dateStr?: string) {
   .head h1 {
     font-size: 28px;
     line-height: 1.5;
-    color: #111;
+    color: var(--color-text);
     margin: 0 0 8px;
   }
 
   .date {
     display: block;
-    font-size: 13px;
-    color: #888;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
   }
 
   .main-visual {
     margin: 0 0 40px;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
     aspect-ratio: 16 / 9;
   }
@@ -90,9 +90,9 @@ function formatDate(dateStr?: string) {
 
   /* CMSのリッチテキスト(content)の見た目調整 */
   .prose {
-    font-size: 16px;
+    font-size: var(--font-size-base);
     line-height: 1.9;
-    color: #222;
+    color: var(--color-text-sub);
   }
 
   .prose :global(p) {
@@ -103,19 +103,19 @@ function formatDate(dateStr?: string) {
     font-size: 22px;
     margin: 2.4em 0 1em;
     padding-bottom: 0.4em;
-    color: #111;
+    color: var(--color-text);
   }
 
   .prose :global(h3) {
-    font-size: 18px;
+    font-size: var(--font-size-lg);
     margin: 2em 0 0.8em;
-    color: #111;
+    color: var(--color-text);
   }
 
   .prose :global(img) {
     max-width: 100%;
     height: auto;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     margin: 1.5em 0;
   }
 
@@ -138,12 +138,12 @@ function formatDate(dateStr?: string) {
   .prose :global(blockquote) {
     margin: 1.5em 0;
     padding: 0.2em 1.2em;
-    border-left: 3px solid #ddd;
-    color: #666;
+    border-left: 3px solid var(--color-border);
+    color: var(--color-text-muted);
   }
 
   .prose :global(code) {
-    background: #f4f4f4;
+    background: var(--color-bg-subtle);
     padding: 0.15em 0.4em;
     border-radius: 3px;
     font-size: 0.9em;
@@ -153,7 +153,7 @@ function formatDate(dateStr?: string) {
     background: #1e1e1e;
     color: #eee;
     padding: 1.2em;
-    border-radius: 6px;
+    border-radius: var(--radius-sm);
     overflow-x: auto;
     margin: 1.5em 0;
   }
@@ -164,6 +164,10 @@ function formatDate(dateStr?: string) {
   }
 
   @media (max-width: 560px) {
+    .column-detail .inner {
+      padding: 56px var(--container-padding);
+    }
+
     .head h1 {
       font-size: 22px;
     }

@@ -7,7 +7,7 @@ import { client } from "./microcms";
  */
 
 export type Column = {
-  title: string;
+  meta: { slug: string; title: string };
   contents: string;
   mainVisual: {
     url: string;

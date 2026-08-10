@@ -4,11 +4,18 @@ import { getColumns } from "../../library/column";
 import { optimizeImage } from "../../library/microcms";
 
 const { contents } = await getColumns();
+function formatDate(dateStr?: string) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(
+    d.getDate(),
+  ).padStart(2, "0")}`;
+}
 ---
 
 <Layout title="column">
   <section class="column-list">
-    <div class="inner">
+    <div class="content">
       <div class="column-head">
         <h2>Column</h2>
       </div>
@@ -20,14 +27,14 @@ const { contents } = await getColumns();
                 <div class="thumb">
                   <img
                     src={optimizeImage(item.mainVisual?.url)}
-                    alt={item.title}
+                    alt={item.meta.title}
                     loading="lazy"
                   />
                 </div>
-                <p class="title">{item.title}</p>
-                {/* <time class="date" datetime={item.date}>
-                {formatDate(item.date)}
-              </time> */}
+                <p class="title">{item.meta.title}</p>
+                {item.publishedAt && (
+                  <p class="date">{formatDate(item.publishedAt)}</p>
+                )}
               </a>
             </li>
           ))
@@ -37,12 +44,6 @@ const { contents } = await getColumns();
   </section>
 
   <style>
-    .column-list .inner {
-      max-width: var(--container-width);
-      margin: 0 auto;
-      padding: 160px var(--container-padding);
-    }
-
     h2 {
       font-size: var(--font-size-xl);
       font-weight: 400;
