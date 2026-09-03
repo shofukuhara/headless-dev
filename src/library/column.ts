@@ -26,9 +26,30 @@ export const getColumns = async () => {
   });
 };
 
+/**
+ * =========================
+ * Column（コラム記事詳細）
+ * =========================
+ */
+
 export const getColumn = async (id: string) => {
   return await client.getListDetail<Column>({
     endpoint: "column",
     contentId: id,
+  });
+};
+
+/**
+ * =========================
+ * Column（コラム記事下書きプレビュー）
+ * =========================
+ */
+export const getColumnPreview = async (id: string, draftKey: string) => {
+  return await client.getListDetail<Column>({
+    endpoint: "column",
+    contentId: id,
+    queries: {
+      draftKey,
+    },
   });
 };
