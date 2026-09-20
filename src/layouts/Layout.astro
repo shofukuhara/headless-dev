@@ -57,6 +57,11 @@ const { title, description } = Astro.props;
     margin: 0 auto;
     padding: 128px var(--container-padding) 168px;
   }
+  :global(.content.detail) {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 60px var(--container-padding) 60px;
+  }
   :global(.section + .section) {
     padding-top: 136px;
   }
