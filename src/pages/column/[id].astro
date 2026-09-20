@@ -13,6 +13,7 @@ export async function getStaticPaths() {
 const { id } = Astro.params;
 
 const column = await getColumn(id);
+const heroImage = column.meta.thumbnail?.url;
 
 function formatDate(dateStr?: string) {
   if (!dateStr) return "";
@@ -28,56 +29,116 @@ function formatDate(dateStr?: string) {
     <div class="inner">
       <header class="head">
         <h1>{column.meta.title}</h1>
-        <!-- {
+        {
+          column.meta.description && (
+            <p class="description">{column.meta.description}</p>
+          )
+        }
+        {
           column.publishedAt && (
-            <time class="date" datetime={column.publishedAt}>
+            <time datetime={column.publishedAt}>
               {formatDate(column.publishedAt)}
             </time>
           )
-        } -->
+        }
       </header>
 
       <div class="main-visual">
         <img
-          src={optimizeImage(column.mainVisual.url, { width: 1200 })}
+          src={optimizeImage(heroImage, { width: 1200 })}
           alt={column.meta.title}
         />
       </div>
 
-      <div class="prose" set:html={column.contents} />
+      <div class="content">
+        {
+          column.content.map((block) => {
+            if (block.fieldId === "richEditor") {
+              return <div class="prose" set:html={block.richEditor} />;
+            }
+
+            if (block.fieldId === "title") {
+              return <h2 class="content-title">{block.title}</h2>;
+            }
+
+            if (block.fieldId === "list_text") {
+              return (
+                <ul class="text-list">
+                  {block.text.map((item) => (
+                    <li>{item.text}</li>
+                  ))}
+                </ul>
+              );
+            }
+            if (block.fieldId === "list_image_caption") {
+              return (
+                <div class="image-list">
+                  {block.image_caption.map((item) => (
+                    <figure class="captioned-image">
+                      <img
+                        src={optimizeImage(item.image.url, { width: 1000 })}
+                        alt={item.caption || column.meta.title}
+                        loading="lazy"
+                      />
+                      {item.caption && <figcaption>{item.caption}</figcaption>}
+                    </figure>
+                  ))}
+                </div>
+              );
+            }
+          })
+        }
+      </div>
     </div>
   </article>
 </Layout>
 
 <style>
   .column-detail .inner {
-    max-width: 720px;
+    max-width: 840px;
     margin: 0 auto;
-    padding: 80px var(--container-padding);
+    padding: 112px var(--container-padding) 128px;
   }
 
   .head {
-    margin-bottom: 24px;
+    margin: 0 0 48px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--color-border);
   }
 
   .head h1 {
-    font-size: 28px;
-    line-height: 1.5;
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(30px, 4vw, 44px);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.01em;
     color: var(--color-text);
-    margin: 0 0 8px;
   }
 
-  .date {
+  .description {
+    max-width: 620px;
+    margin: 18px 0 0;
+    color: var(--color-text-sub);
+    font-size: var(--font-size-base);
+    line-height: 1.8;
+  }
+
+  .head time {
     display: block;
+    margin-top: 16px;
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
+    letter-spacing: 0.08em;
   }
 
   .main-visual {
-    margin: 0 0 40px;
+    margin: 0 0 72px;
     border-radius: var(--radius-sm);
     overflow: hidden;
     aspect-ratio: 16 / 9;
+    background: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
   }
 
   .main-visual img {
@@ -88,10 +149,14 @@ function formatDate(dateStr?: string) {
     display: block;
   }
 
+  .content {
+    margin: 0;
+  }
+
   /* CMSのリッチテキスト(content)の見た目調整 */
   .prose {
     font-size: var(--font-size-base);
-    line-height: 1.9;
+    line-height: 2;
     color: var(--color-text-sub);
   }
 
@@ -100,15 +165,17 @@ function formatDate(dateStr?: string) {
   }
 
   .prose :global(h2) {
-    font-size: 22px;
-    margin: 2.4em 0 1em;
-    padding-bottom: 0.4em;
+    margin: 2.6em 0 1em;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 24px;
+    line-height: 1.4;
     color: var(--color-text);
   }
 
   .prose :global(h3) {
-    font-size: var(--font-size-lg);
-    margin: 2em 0 0.8em;
+    margin: 2.4em 0 0.8em;
+    font-size: 20px;
     color: var(--color-text);
   }
 
@@ -120,9 +187,19 @@ function formatDate(dateStr?: string) {
   }
 
   .prose :global(a) {
-    color: #1a5fb4;
+    color: var(--color-accent);
     text-decoration: underline;
     text-underline-offset: 2px;
+    transition: opacity 0.2s ease;
+  }
+
+  .prose :global(a:hover) {
+    opacity: 0.7;
+  }
+
+  .prose :global(a:focus-visible) {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
   }
 
   .prose :global(ul),
@@ -137,9 +214,11 @@ function formatDate(dateStr?: string) {
 
   .prose :global(blockquote) {
     margin: 1.5em 0;
-    padding: 0.2em 1.2em;
-    border-left: 3px solid var(--color-border);
+    padding: 12px 20px;
+    border-left: 2px solid var(--color-accent);
+    background: var(--color-bg-subtle);
     color: var(--color-text-muted);
+    font-style: italic;
   }
 
   .prose :global(code) {
@@ -163,13 +242,100 @@ function formatDate(dateStr?: string) {
     padding: 0;
   }
 
+  .text-list {
+    margin: 40px 0 0;
+    padding: 18px 24px 18px 20px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-subtle);
+    color: var(--color-text-sub);
+    line-height: 1.8;
+    list-style: none;
+  }
+
+  .text-list li {
+    position: relative;
+    padding-left: 24px;
+  }
+
+  .text-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.75em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent);
+  }
+
+  .text-list li + li {
+    margin-top: 10px;
+  }
+
+  .captioned-image {
+    margin: 0;
+  }
+
+  .captioned-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .captioned-image:hover img {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.18);
+  }
+
+  figcaption {
+    margin-top: 10px;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    line-height: 1.6;
+  }
+
+  .image-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 32px;
+    margin: 56px 0 0;
+  }
+
   @media (max-width: 560px) {
     .column-detail .inner {
-      padding: 56px var(--container-padding);
+      padding: 72px var(--container-padding) 96px;
     }
 
     .head h1 {
-      font-size: 22px;
+      font-size: 30px;
+    }
+
+    .head {
+      margin-bottom: 32px;
+    }
+
+    .main-visual {
+      margin-bottom: 48px;
+      border-radius: 4px;
+    }
+
+    .prose :global(h2) {
+      font-size: 21px;
+    }
+
+    .text-list {
+      padding: 16px 20px;
+    }
+
+    .image-list {
+      grid-template-columns: 1fr;
+      gap: 40px;
     }
   }
 </style>

@@ -6,6 +6,7 @@ import { client } from "./microcms";
  * =========================
  */
 
+//
 export type Work = {
   image: {
     url: string;

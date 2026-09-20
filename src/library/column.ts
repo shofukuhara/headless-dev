@@ -6,12 +6,50 @@ import { client } from "./microcms";
  * =========================
  */
 
+// Column本文内のブロック型
+export type Meta = {
+  fieldId: "meta";
+  slug: string;
+  title: string;
+  description: string;
+  thumbnail: { url: string };
+};
+
+
+type RichEditor = {
+  fieldId: "richEditor";
+  richEditor: string;
+};
+
+type Title = {
+  fieldId: "title";
+  title: string;
+  title_select: string[];
+};
+
+type ListText = {
+  fieldId: "list_text";
+  text: {
+    fieldId: "text";
+    text: string;
+  }[];
+};
+
+type ListImageCaption = {
+  fieldId: "list_image_caption";
+  image_caption: {
+    fieldId: "image_caption";
+    image: { url: string };
+    caption: string;
+  }[];
+};
+
+export type ColumnContent = RichEditor | Title | ListText | ListImageCaption;
+
+// Columnの型定義
 export type Column = {
-  meta: { slug: string; title: string };
-  contents: string;
-  mainVisual: {
-    url: string;
-  };
+  meta: Meta;
+  content: ColumnContent[];
 } & MicroCMSListContent;
 
 /**

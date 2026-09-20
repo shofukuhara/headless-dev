@@ -49,12 +49,21 @@ const { title, description } = Astro.props;
     padding: 0;
     margin: 0;
   }
+  :global(main) {
+    min-height: 60vh;
+  }
   :global(.content) {
     max-width: var(--container-width);
     margin: 0 auto;
-    padding: 160px var(--container-padding) 200px;
+    padding: 128px var(--container-padding) 168px;
   }
   :global(.section + .section) {
-    padding-top: 160px;
+    padding-top: 136px;
+  }
+
+  @media (max-width: 560px) {
+    :global(.content) {
+      padding: 80px var(--container-padding) 112px;
+    }
   }
 </style>

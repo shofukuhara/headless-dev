@@ -26,7 +26,7 @@ function formatDate(dateStr?: string) {
               <a href={`/column/${item.id}`}>
                 <div class="thumb">
                   <img
-                    src={optimizeImage(item.mainVisual?.url)}
+                    src={optimizeImage(item.meta.thumbnail?.url)}
                     alt={item.meta.title}
                     loading="lazy"
                   />
@@ -45,16 +45,17 @@ function formatDate(dateStr?: string) {
 
   <style>
     h2 {
+      font-family: var(--font-display);
       font-size: var(--font-size-xl);
-      font-weight: 400;
+      font-weight: 600;
       color: var(--color-text);
-      margin-bottom: 32px;
+      margin: 0 0 48px;
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 32px 24px;
+      gap: 48px 28px;
       list-style: none;
       margin: 0;
       padding: 0;
@@ -77,15 +78,10 @@ function formatDate(dateStr?: string) {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform var(--transition-slow);
-    }
-
-    .card a:hover .thumb img {
-      transform: scale(1.04);
     }
 
     .title {
-      margin: 12px 0 6px;
+      margin: 16px 0 7px;
       font-size: var(--font-size-base);
       line-height: 1.5;
       color: var(--color-text);
@@ -93,6 +89,7 @@ function formatDate(dateStr?: string) {
 
     .card a:hover .title {
       text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
     .date {
