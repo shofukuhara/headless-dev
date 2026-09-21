@@ -36,12 +36,16 @@ function formatDate(dateStr?: string) {
       }
     </header>
 
-    <div class="main-visual">
-      <img
-        src={optimizeImage(heroImage, { width: 1200 })}
-        alt={column.meta.title}
-      />
-    </div>
+    {
+      heroImage && (
+        <div class="main-visual">
+          <img
+            src={optimizeImage(heroImage, { width: 1200 })}
+            alt={column.meta.title}
+          />
+        </div>
+      )
+    }
 
     <div class="content detail">
       {
