@@ -1,0 +1,36 @@
+---
+import { optimizeImage } from "../../library/microcms";
+interface Props {
+  item: {
+    image?: {
+      url?: string;
+    };
+  };
+}
+const { item } = Astro.props as Props;
+---
+
+<div class="c-works-thumb">
+  <img src={optimizeImage(item.image?.url)} alt="" loading="lazy" />
+</div>
+
+<style>
+  .c-works-thumb {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .c-works-thumb {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-subtle);
+  }
+
+  .c-works-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

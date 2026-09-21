@@ -10,6 +10,12 @@ interface Context {
 }
 
 export const onRequest = async (context: Context): Promise<Response> => {
+  // microCMSのプレビューはiframe経由でアクセスされるためBasic認証をスキップ（draftKeyが認可情報となる）
+  const { pathname } = new URL(context.request.url);
+  if (pathname === "/preview" || pathname.startsWith("/preview/")) {
+    return context.next();
+  }
+
   const authorization = context.request.headers.get("Authorization");
 
   if (!authorization?.startsWith("Basic ")) {

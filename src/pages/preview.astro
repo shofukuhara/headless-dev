@@ -3,6 +3,7 @@ import ColumnDetail from "../components/column/ColumnDetail.astro";
 import Layout from "../layouts/Layout.astro";
 import { getColumnPreview } from "../library/column";
 
+// プレビューページのみSSR
 export const prerender = false;
 
 const contentId = Astro.url.searchParams.get("contentId");

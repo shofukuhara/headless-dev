@@ -19,6 +19,6 @@ if (!id) {
 const column = await getColumn(id);
 ---
 
-<Layout title={column.meta.title}>
+<Layout title={column.meta.title} description={column.meta.description}>
   <ColumnDetail column={column} />
 </Layout>

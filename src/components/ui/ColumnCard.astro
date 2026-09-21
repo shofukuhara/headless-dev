@@ -1,0 +1,74 @@
+---
+import { formatDate } from "../../library/date";
+import { optimizeImage } from "../../library/microcms";
+
+interface Props {
+  item: any;
+}
+
+const { item } = Astro.props;
+---
+
+<a href={`/column/${item.id}`} class="c-column-card">
+  <div class="thumb">
+    <img
+      src={optimizeImage(item.meta.thumbnail?.url)}
+      alt={item.meta.title}
+      loading="lazy"
+    />
+  </div>
+  <p class="title">{item.meta.title}</p>
+  {item.publishedAt && <p class="date">{formatDate(item.publishedAt)}</p>}
+</a>
+
+<style>
+  .c-column-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .c-column-card .thumb {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-subtle);
+  }
+
+  .c-column-card .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .c-column-card .title {
+    margin: 16px 0 7px;
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    color: var(--color-text);
+  }
+
+  .c-column-card:hover .title {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .c-column-card .date {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .c-column-card .more {
+    width: fit-content;
+    margin: 56px auto 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .c-column-card .more:hover {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
+</style>

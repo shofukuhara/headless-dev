@@ -46,6 +46,13 @@ function formatDate(dateStr?: string) {
     <div class="content detail">
       {
         column.content.map((block) => {
+          if (block.fieldId === "contents") {
+            return (
+              <div class="block">
+                <div class="prose" set:html={block.contents} />
+              </div>
+            );
+          }
           if (block.fieldId === "richEditor") {
             return (
               <div class="block">
@@ -101,7 +108,7 @@ function formatDate(dateStr?: string) {
   .column-detail .inner {
     max-width: 840px;
     margin: 0 auto;
-    padding: 112px var(--container-padding) 128px;
+    padding: 72px var(--container-padding) 96px;
   }
 
   .head {
@@ -112,8 +119,7 @@ function formatDate(dateStr?: string) {
 
   .head h1 {
     margin: 0;
-    font-family: var(--font-display);
-    font-size: clamp(30px, 4vw, 44px);
+    font-size: clamp(26px, 4vw, 36px);
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: 0.01em;
@@ -137,7 +143,7 @@ function formatDate(dateStr?: string) {
   }
 
   .main-visual {
-    margin: 0 0 72px;
+    margin: 0 0 56px;
     border-radius: var(--radius-sm);
     overflow: hidden;
     aspect-ratio: 16 / 9;
@@ -154,7 +160,7 @@ function formatDate(dateStr?: string) {
   }
 
   .content {
-    --content-gap: 80px;
+    --content-gap: 64px;
     margin: 0;
   }
 
@@ -169,12 +175,12 @@ function formatDate(dateStr?: string) {
   }
 
   .content > .title + .block {
-    margin-top: calc(var(--content-gap) / 2);
+    margin-top: 32px;
   }
 
   .content-title {
     margin: 0;
-    padding-bottom: 10px;
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--color-border);
     font-size: 24px;
     font-weight: 600;
@@ -344,11 +350,11 @@ function formatDate(dateStr?: string) {
 
   @media (max-width: 560px) {
     .column-detail .inner {
-      padding: 72px var(--container-padding) 96px;
+      padding: 56px var(--container-padding) 72px;
     }
 
     .head h1 {
-      font-size: 30px;
+      font-size: 26px;
     }
 
     .head {

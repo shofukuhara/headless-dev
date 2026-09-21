@@ -1,11 +1,6 @@
 ---
 // Header.astro
-const navItems = [
-  { label: "About", href: "/about" },
-  { label: "Works", href: "/works" },
-  { label: "Column", href: "/column" },
-  { label: "Contact", href: "/contact" },
-];
+import { links } from "../../data/Link";
 ---
 
 <header class="site-header">
@@ -15,7 +10,7 @@ const navItems = [
     <nav class="nav" aria-label="メインナビゲーション">
       <ul>
         {
-          navItems.map((item) => (
+          links.map((item) => (
             <li>
               <a href={item.href}>{item.label}</a>
             </li>
@@ -48,8 +43,7 @@ const navItems = [
     position: sticky;
     top: 0;
     z-index: 50;
-    background: color-mix(in srgb, var(--color-bg) 92%, transparent);
-    backdrop-filter: blur(12px);
+    background: var(--color-bg);
     border-bottom: 1px solid var(--color-border);
   }
 
@@ -63,9 +57,8 @@ const navItems = [
   }
 
   .logo {
-    font-family: var(--font-display);
     font-weight: 700;
-    font-size: 19px;
+    font-size: var(--font-size-lg);
     color: var(--color-text);
     text-decoration: none;
     letter-spacing: 0.02em;

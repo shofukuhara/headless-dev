@@ -15,6 +15,10 @@ export type Meta = {
   thumbnail: { url: string };
 };
 
+export type Content = {
+  fieldId: "contents";
+  contents: string;
+};
 
 type RichEditor = {
   fieldId: "richEditor";
@@ -44,7 +48,12 @@ type ListImageCaption = {
   }[];
 };
 
-export type ColumnContent = RichEditor | Title | ListText | ListImageCaption;
+export type ColumnContent =
+  | RichEditor
+  | Title
+  | ListText
+  | ListImageCaption
+  | Content;
 
 // Columnの型定義
 export type Column = {

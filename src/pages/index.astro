@@ -1,21 +1,14 @@
 ---
 // src/pages/index.astro
 import Button from "../components/ui/Button.astro";
+import ColumnCard from "../components/ui/ColumnCard.astro";
+import WorksThumb from "../components/ui/WorksThumb.astro";
 import Layout from "../layouts/Layout.astro";
 import { getColumns } from "../library/column";
-import { optimizeImage } from "../library/microcms";
 import { getWorks } from "../library/works";
 
 const latestColumns = (await getColumns()).contents.slice(0, 3);
 const latestWorks = (await getWorks()).contents.slice(0, 3);
-
-function formatDate(dateStr?: string) {
-  if (!dateStr) return "";
-  const d = new Date(dateStr);
-  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(
-    d.getDate(),
-  ).padStart(2, "0")}`;
-}
 ---
 
 <Layout title="Top">
@@ -32,13 +25,7 @@ function formatDate(dateStr?: string) {
           {
             latestWorks.map((item) => (
               <li class="card">
-                <div class="thumb">
-                  <img
-                    src={optimizeImage(item.image?.url, { width: 600 })}
-                    alt=""
-                    loading="lazy"
-                  />
-                </div>
+                <WorksThumb item={item} />
               </li>
             ))
           }
@@ -57,19 +44,7 @@ function formatDate(dateStr?: string) {
           {
             latestColumns.map((item) => (
               <li class="card">
-                <a href={`/column/${item.id}`}>
-                  <div class="thumb">
-                    <img
-                      src={optimizeImage(item.meta.thumbnail?.url)}
-                      alt=""
-                      loading="lazy"
-                    />
-                  </div>
-                  <p class="title">{item.meta.title}</p>
-                  {item.publishedAt && (
-                    <p class="date">{formatDate(item.publishedAt)}</p>
-                  )}
-                </a>
+                <ColumnCard item={item} />
               </li>
             ))
           }
@@ -92,7 +67,7 @@ function formatDate(dateStr?: string) {
   /* FV (Hero) */
   .hero img {
     width: 100%;
-    aspect-ratio: 2 / 1;
+    aspect-ratio: 21 / 8;
     object-fit: cover;
     object-position: bottom;
     display: block;
@@ -106,7 +81,6 @@ function formatDate(dateStr?: string) {
   }
 
   .section-head h2 {
-    font-family: var(--font-display);
     font-size: var(--font-size-xl);
     font-weight: 600;
     color: var(--color-text);
@@ -119,43 +93,6 @@ function formatDate(dateStr?: string) {
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-
-  .card a {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .thumb {
-    aspect-ratio: 16 / 10;
-    overflow: hidden;
-    border-radius: var(--radius-sm);
-    background: var(--color-bg-subtle);
-  }
-
-  .thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .title {
-    margin: 16px 0 7px;
-    font-size: var(--font-size-base);
-    line-height: 1.5;
-    color: var(--color-text);
-  }
-
-  .card a:hover .title {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .date {
-    display: block;
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
   }
 
   .more {
@@ -179,7 +116,7 @@ function formatDate(dateStr?: string) {
 
   @media (max-width: 560px) {
     .hero img {
-      aspect-ratio: 3 / 2;
+      aspect-ratio: 16 / 9;
     }
 
     .section {
