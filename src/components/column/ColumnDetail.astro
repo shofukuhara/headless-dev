@@ -45,14 +45,7 @@ function formatDate(dateStr?: string) {
 
     <div class="content detail">
       {
-        column.content.map((block) => {
-          if (block.fieldId === "contents") {
-            return (
-              <div class="block">
-                <div class="prose" set:html={block.contents} />
-              </div>
-            );
-          }
+        (column.content ?? []).map((block) => {
           if (block.fieldId === "richEditor") {
             return (
               <div class="block">
@@ -73,7 +66,7 @@ function formatDate(dateStr?: string) {
             return (
               <div class="block">
                 <ul class="text-list">
-                  {block.text.map((item) => (
+                  {(block.text ?? []).map((item) => (
                     <li>{item.text}</li>
                   ))}
                 </ul>
@@ -84,7 +77,7 @@ function formatDate(dateStr?: string) {
             return (
               <div class="block">
                 <div class="image-list">
-                  {block.image_caption.map((item) => (
+                  {(block.image_caption ?? []).map((item) => (
                     <figure class="captioned-image">
                       <img
                         src={optimizeImage(item.image.url, { width: 1000 })}
