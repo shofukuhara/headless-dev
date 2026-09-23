@@ -6,17 +6,19 @@ import { getColumn, getColumns } from "../../library/column";
 export async function getStaticPaths() {
   const { contents } = await getColumns();
   return contents.map((content) => ({
-    params: { id: content.id },
+    params: { id: content.meta.slug },
+    props: { content },
   }));
 }
 
 const { id } = Astro.params;
+const { content } = Astro.props;
 
 if (!id) {
   throw new Error("記事IDがありません");
 }
 
-const column = await getColumn(id);
+const column = content ?? (await getColumn(id));
 ---
 
 <Layout title={column.meta.title} description={column.meta.description}>

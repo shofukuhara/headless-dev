@@ -15,9 +15,9 @@ const latestWorks = (await getWorks()).contents.slice(0, 3);
   <section class="hero">
     <img src="fv.png" alt="" />
   </section>
-  <div class="content">
+  <div>
     <section class="section">
-      <div class="inner">
+      <div class="content">
         <div class="section-head">
           <h2>Works</h2>
         </div>
@@ -36,7 +36,7 @@ const latestWorks = (await getWorks()).contents.slice(0, 3);
       </div>
     </section>
     <section class="section">
-      <div class="inner">
+      <div class="content">
         <div class="section-head">
           <h2>Column</h2>
         </div>
@@ -58,12 +58,6 @@ const latestWorks = (await getWorks()).contents.slice(0, 3);
 </Layout>
 
 <style>
-  .inner {
-    max-width: var(--container-width);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
-  }
-
   /* FV (Hero) */
   .hero img {
     width: 100%;
@@ -81,6 +75,7 @@ const latestWorks = (await getWorks()).contents.slice(0, 3);
   }
 
   .section-head h2 {
+    margin: 0;
     font-size: var(--font-size-xl);
     font-weight: 600;
     color: var(--color-text);
@@ -120,7 +115,7 @@ const latestWorks = (await getWorks()).contents.slice(0, 3);
     }
 
     .section {
-      padding: 56px 0;
+      padding: 0;
     }
 
     .grid {

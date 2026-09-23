@@ -10,15 +10,20 @@ interface Props {
 const { item } = Astro.props as Props;
 ---
 
-<div class="c-works-thumb">
+<a class="c-works-thumb" href="/works/sample-site">
   <img src={optimizeImage(item.image?.url)} alt="" loading="lazy" />
-</div>
+</a>
 
 <style>
   .c-works-thumb {
     display: block;
     text-decoration: none;
     color: inherit;
+    transition: opacity var(--transition-fast);
+  }
+
+  .c-works-thumb:hover {
+    opacity: 0.75;
   }
 
   .c-works-thumb {

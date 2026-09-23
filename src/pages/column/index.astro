@@ -1,9 +1,11 @@
 ---
 import ColumnCard from "../../components/ui/ColumnCard.astro";
 import Layout from "../../layouts/Layout.astro";
+import { getCategories } from "../../library/category";
 import { getColumns } from "../../library/column";
 
 const { contents } = await getColumns();
+const { contents: categories } = await getCategories();
 ---
 
 <Layout title="column">
@@ -11,6 +13,14 @@ const { contents } = await getColumns();
     <div class="content">
       <div class="column-head">
         <h2>Column</h2>
+        <nav class="category-nav" aria-label="カテゴリ">
+          <a href="/column" class="active">All</a>
+          {
+            categories.map((category) => (
+              <a href={`/column/category/${category.slug}`}>{category.name}</a>
+            ))
+          }
+        </nav>
       </div>
       <ul class="grid">
         {
@@ -32,6 +42,28 @@ const { contents } = await getColumns();
       margin: 0 0 48px;
     }
 
+    .category-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: -24px 0 48px;
+    }
+
+    .category-nav a {
+      padding: 7px 12px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      color: var(--color-text-muted);
+      font-size: var(--font-size-sm);
+      text-decoration: none;
+    }
+
+    .category-nav a:hover,
+    .category-nav a.active {
+      border-color: var(--color-text);
+      color: var(--color-text);
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -48,13 +80,9 @@ const { contents } = await getColumns();
     }
 
     @media (max-width: 560px) {
-      .column-list .inner {
-        padding: 56px var(--container-padding);
-      }
-
       .grid {
         grid-template-columns: 1fr;
-        gap: 28px;
+        gap: 32px;
       }
     }
   </style>

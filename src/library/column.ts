@@ -15,6 +15,12 @@ export type Meta = {
   thumbnail: { url: string };
 };
 
+export type ColumnCategory = {
+  id: string;
+  name: string;
+  slug: string;
+};
+
 type RichEditor = {
   fieldId: "richEditor";
   richEditor: string;
@@ -49,6 +55,7 @@ export type ColumnContent = RichEditor | Title | ListText | ListImageCaption;
 export type Column = {
   meta: Meta;
   content: ColumnContent[];
+  category?: ColumnCategory | ColumnCategory[];
 } & MicroCMSListContent;
 
 /**
@@ -60,6 +67,9 @@ export type Column = {
 export const getColumns = async () => {
   return await client.getList<Column>({
     endpoint: "column",
+    queries: {
+      orders: "-publishedAt",
+    },
   });
 };
 

@@ -28,15 +28,15 @@ const { contents } = await getWorks();
 <style>
   h2 {
     font-size: var(--font-size-xl);
-    font-weight: 400;
+    font-weight: 600;
     color: var(--color-text);
-    margin-bottom: 32px;
+    margin: 0 0 48px;
   }
 
   .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 32px 24px;
+    gap: 48px 28px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -62,13 +62,9 @@ const { contents } = await getWorks();
   }
 
   @media (max-width: 560px) {
-    .works-list .content {
-      padding: 56px var(--container-padding);
-    }
-
     .grid {
       grid-template-columns: 1fr;
-      gap: 28px;
+      gap: 32px;
     }
   }
 </style>

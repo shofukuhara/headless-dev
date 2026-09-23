@@ -22,6 +22,9 @@ export type Work = {
 export const getWorks = async () => {
   return await client.getList<Work>({
     endpoint: "works",
+    queries: {
+      orders: "-publishedAt",
+    },
   });
 };
 

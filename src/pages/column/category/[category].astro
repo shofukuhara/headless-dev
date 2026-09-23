@@ -1,0 +1,80 @@
+---
+import ColumnCard from "../../../components/ui/ColumnCard.astro";
+import Layout from "../../../layouts/Layout.astro";
+import {
+  getCategories,
+  getCategory,
+  getColumnsByCategory,
+} from "../../../library/category";
+
+export async function getStaticPaths() {
+  const categories = await getCategories();
+  return categories.contents.map((category) => {
+    return {
+      params: {
+        category: category.slug,
+      },
+    };
+  });
+}
+const { category } = Astro.params;
+const categoryData = (await getCategory(category ?? "")).contents[0];
+const columns = await getColumnsByCategory(categoryData.id);
+---
+
+<Layout title={categoryData.name}>
+  <section class="category-page">
+    <div class="content">
+      <a class="back-link" href="/column">← Column</a>
+      <h1>{categoryData.name}</h1>
+      <ul class="grid">
+        {
+          columns.contents.map((item) => (
+            <li>
+              <ColumnCard item={item} />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .back-link {
+    display: inline-block;
+    margin-bottom: 48px;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+    text-underline-offset: 4px;
+  }
+
+  h1 {
+    margin: 0 0 48px;
+    color: var(--color-text);
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
+  }
+</style>
