@@ -1,9 +1,136 @@
 ---
-// src/pages/contact.astro
 import Layout from "../../layouts/Layout.astro";
 ---
 
 <Layout
   title="Contact"
   description="新規サイト構築やヘッドレスCMS化のご相談は、こちらのフォームからお問い合わせください。"
-/>
+>
+  <section class="contact">
+    <div class="content">
+      <h1>お問い合わせ</h1>
+      <p class="lead">
+        新規サイト構築やヘッドレスCMS化のご相談など、お気軽にお問い合わせください。
+      </p>
+
+      <form action="" method="post">
+        <div class="item">
+          <label for="category">お問い合わせ種別</label>
+          <select name="category" id="category" required>
+            <option value="" selected disabled>選択してください</option>
+            <option value="新規サイト制作">新規サイト制作</option>
+            <option value="サイトリニューアル">サイトリニューアル</option>
+            <option value="ヘッドレスCMS">ヘッドレスCMS</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+
+        <div class="item">
+          <label for="name">お名前</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            autocomplete="name"
+            required
+          />
+        </div>
+
+        <div class="item">
+          <label for="kana">ふりがな</label>
+          <input
+            type="text"
+            name="kana"
+            id="kana"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <div class="item">
+          <label for="message">お問い合わせ内容</label>
+          <textarea name="message" id="message" rows="8" required></textarea>
+        </div>
+
+        <button type="submit">送信する</button>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .contact h1 {
+    margin: 0 0 16px;
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+  }
+
+  .content {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .lead {
+    margin: 0 0 48px;
+    color: var(--color-text-sub);
+  }
+
+  .item {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  label {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 13px 14px;
+    color: var(--color-text);
+    background: var(--color-bg);
+    transition: border-color var(--transition-fast);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: 2px solid var(--color-black);
+    outline-offset: 1px;
+    border-color: var(--color-black);
+  }
+
+  button {
+    display: block;
+    width: 240px;
+    height: 46px;
+    margin: 40px auto 0;
+    border: 0;
+    border-radius: var(--radius-sm);
+    padding: 8px 16px;
+    color: var(--color-bg);
+    background: var(--color-black);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+
+  button:hover {
+    background: var(--color-text-sub);
+  }
+
+  @media (max-width: 560px) {
+    .lead {
+      margin-bottom: 36px;
+    }
+  }
+</style>
